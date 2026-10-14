@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AdversarialQuantitativeProblem",
+  "type": "object",
+  "required": [
+    "problem_id",
+    "domain",
+    "difficulty",
+    "title",
+    "prompt",
+    "targeted_antipattern",
+    "input_parameters",
+    "ground_truth",
+    "tolerance",
+    "adversarial_trap_output"
+  ],
+  "properties": {
+    "problem_id": {
+      "type": "string",
+      "pattern": "^[A-Z_]+_[0-9]{3}$"
+    },
+    "domain": {
+      "type": "string",
+      "enum": [
+        "PROB_BAYES",
+        "INFER_STATS",
+        "MULTICOLL_VIF",
+        "TIMESERIES_NS",
+        "LEAKAGE_TRAP",
+        "MULTI_TEST_PR"
+      ]
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["medium", "hard", "adversarial"]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 10
+    },
+    "prompt": {
+      "type": "string",
+      "minLength": 20
+    },
+    "targeted_antipattern": {
+      "type": "string",
+      "minLength": 10
+    },
+    "input_parameters": {
+      "type": "object"
+    },
+    "ground_truth": {
+      "type": "object",
+      "required": ["primary_metric", "methodological_flag"]
+    },
+    "tolerance": {
+      "type": "number",
+      "minimum": 1e-9,
+      "maximum": 0.05
+    },
+    "adversarial_trap_output": {
+      "type": "object",
+      "required": ["primary_metric", "methodological_flag"]
+    }
+  },
+  "additionalProperties": false
+}
